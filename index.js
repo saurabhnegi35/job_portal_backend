@@ -4,11 +4,19 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/database");
 const routes = require("./routes");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const PORT = 3000;
 
 dotenv.config();
 connectDB();
+
+app.use(
+  cors({
+    origin: "http://localhost:5174",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
