@@ -70,6 +70,9 @@ exports.login = async (req, res) => {
       .status(200)
       .cookie("authToken", token, {
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 day in milliseconds
+        httpOnly: true,
+        secure: true, // Required for HTTPS
+        sameSite: "None",
       })
       .json({
         message: "Login successful",
