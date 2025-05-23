@@ -13,7 +13,10 @@ connectDB();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://job-portal-frontend-phi-eight.vercel.app/",
+    ],
     credentials: true,
   })
 );
