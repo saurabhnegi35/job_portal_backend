@@ -16,6 +16,7 @@ const jobSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    salaryRange: String,
     applicants: [
       {
         type: mongoose.Schema.Types.ObjectId,

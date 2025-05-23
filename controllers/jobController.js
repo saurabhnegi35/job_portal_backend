@@ -20,7 +20,7 @@ exports.createJob = async (req, res) => {
     } else {
       skillsRequired = [];
     }
-    console.log("skillsRequired", skillsRequired);
+    // console.log("skillsRequired", skillsRequired);
     const job = new Job({
       ...rest,
       skillsRequired,
@@ -90,7 +90,7 @@ exports.updateJob = async (req, res) => {
 // Delete a job (Only if created by the same HR/Admin)
 exports.deleteJob = async (req, res) => {
   try {
-    console.log("req.params.id", req.params.id);
+    // console.log("req.params.id", req.params.id);
 
     const job = await Job.findById(req.params.id);
     if (!job) {
