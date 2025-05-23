@@ -4,13 +4,17 @@ const {
   getUserById,
   updateUser,
   deleteUser,
+  ToggleJobStatus,
 } = require("../controllers/adminController");
+const { getAllJobs, deleteJob } = require("../controllers/jobController");
 const router = express.Router();
 
 router.get("/allUsers", getAllUsers);
 router.get("/user/:id", getUserById);
 router.patch("/user/:id", updateUser);
 router.delete("/user/:id", deleteUser);
+router.patch("/toggle-job-status", ToggleJobStatus)
+router.delete("/delete-job/:id", deleteJob)
 
 module.exports = router;
 

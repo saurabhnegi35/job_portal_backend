@@ -20,7 +20,7 @@ router.get("/job/:jobId", isAdminOrHR, getApplicationsByJob);
 
 module.exports = router;
 
-// POST    /api/applications/apply/:jobId       ➝ Apply to a job (Jobseeker only)      ✅
-// GET     /api/applications/my-applications    ➝ View my applications (Jobseeker only)    ✅
-// GET     /api/applications/job/:jobId         ➝ View applications for a job (HR only)    ⚠️
-// PUT     /api/applications/:appId             ➝ Update application status (HR only)      ✅
+// POST    /api/application/apply/:jobId       ➝ Apply to a job (Jobseeker only)           ✅
+// GET     /api/application/my-applications    ➝ View my applications (Jobseeker only)     ✅
+// GET     /api/application/job/:jobId         ➝ View applications for a job (HR only)     ⚠️
+// PUT     /api/application/:applicationId     ➝ Update application status (HR only)       ✅

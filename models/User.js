@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
     enum: ["admin", "hr", "jobseeker"],
     default: "jobseeker",
   },
+  location: String,
+  skills: [String],
+  qualification: String,
 });
 
 module.exports = mongoose.model("User", userSchema);
