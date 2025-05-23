@@ -8,14 +8,24 @@ exports.searchJobSeekers = async (req, res) => {
     const query = { role: "jobseeker" };
 
     if (filters.name) query.name = { $regex: filters.name, $options: "i" };
-    if (filters.location) query.location = { $regex: filters.location, $options: "i" };
-    if (filters.skills) query.skills = { $in: filters.skills.split(",") };
+    if (filters.location)
+      query.location = { $regex: filters.location, $options: "i" };
+    // if (filters.skills) query.skills = { $in: filters.skills.split(",") };
+    if (filters.skills) {
+      // Split skills string into array and convert each to case-insensitive regex
+      const skillRegexes = filters.skills
+        .split(",")
+        .map((skill) => new RegExp(skill.trim(), "i"));
+      query.skills = { $in: skillRegexes };
+    }
 
-    // console.log("filters>>>>", filters)
+    console.log("query>>>>", query);
     const jobseekers = await User.find(query).select("-password");
     res.status(200).json(jobseekers);
   } catch (err) {
-    res.status(500).json({ message: "Failed to search jobseekers", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Failed to search jobseekers", error: err.message });
   }
 };
 
@@ -28,7 +38,9 @@ exports.sourceCandidate = async (req, res) => {
 
     // Only the HR who created the job can source candidates
     if (job.createdBy.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "Not authorized to source for this job" });
+      return res
+        .status(403)
+        .json({ message: "Not authorized to source for this job" });
     }
 
     // Add applicant if not already sourced
@@ -39,7 +51,9 @@ exports.sourceCandidate = async (req, res) => {
 
     res.status(200).json({ message: "Candidate sourced successfully", job });
   } catch (err) {
-    res.status(500).json({ message: "Failed to source candidate", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Failed to source candidate", error: err.message });
   }
 };
 
@@ -57,6 +71,11 @@ exports.getSourcedCandidatesForJob = async (req, res) => {
 
     res.status(200).json(job.applicants);
   } catch (err) {
-    res.status(500).json({ message: "Failed to get sourced candidates", error: err.message });
+    res
+      .status(500)
+      .json({
+        message: "Failed to get sourced candidates",
+        error: err.message,
+      });
   }
 };
